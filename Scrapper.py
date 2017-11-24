@@ -1,18 +1,19 @@
 import requests
 from bs4 import BeautifulSoup
 #get the url and download the html
-page = requests.get("https://testyourbond.com/quiz3/6122253")
+page = requests.get(input("Enter the url of the quiz :"))
 #parse the html (formating)
 soup=BeautifulSoup(page.content,"html.parser")
 #get all the questions
 questions=soup.find_all(class_="question hidden unanswered")
-question=[]
+question_text=[]
 for item in questions:
-	question.append(item.find('h3').get_text())
+	question_text.append(item.find('h3').get_text())
 #get all the correct answers
 answers=soup.find_all(class_="answer correct")
-answer=[]
+answer_text=[]
 for item in answers:
-	answer.append(item.get_text())
+	answer_text.append(item.get_text())
+#making the output 
 for i in range(0,15):
-	print(str(i+1)+"-Q: "+question[i]+" A: "+answer[i]+"\n")
+	print(str(i+1)+"-Q: "+question_text[i]+" A: "+answer_text[i]+"\n")
